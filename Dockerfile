@@ -7,29 +7,24 @@ RUN apt-get update && apt-get install -y \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Set working directory to backend from the start
-WORKDIR /app/backend
+# Set working directory
+WORKDIR /app
 
 # Copy requirements first for better caching
-COPY backend/requirements.txt ./requirements.txt
+COPY backend/requirements.txt ./backend/requirements.txt
 
 # Install Python dependencies
 RUN pip install --no-cache-dir --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r backend/requirements.txt
 
-# Copy the backend application code
-COPY backend/ ./
+# Copy the entire application code
+COPY . .
 
-# Copy startup script
-COPY start.sh /app/start.sh
-RUN chmod +x /app/start.sh
-
-# Go back to app root to create directories
-WORKDIR /app
+# Create necessary directories
 RUN mkdir -p enterprise_uploads enterprise_chroma_db reports
 
-# Return to backend directory for execution
-WORKDIR /app/backend
+# Expose port
+EXPOSE 8000
 
-# Use the startup script
-CMD ["/app/start.sh"]
+# Start command with explicit shell
+ENTRYPOINT ["/bin/bash", "-c", "cd backend && exec python -m uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
