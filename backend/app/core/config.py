@@ -68,7 +68,7 @@ class Settings(BaseSettings):
     CHART_THEME: str = "plotly_white"
     
     # CORS
-    CORS_ORIGINS: List[str] = ["http://localhost:3000"]
+    CORS_ORIGINS: str = "http://localhost:3000"
     
     # Enterprise Features
     ENABLE_MULTI_LANGUAGE: bool = True
