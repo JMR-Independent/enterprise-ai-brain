@@ -18,10 +18,8 @@ from app.services.document_service import DocumentService
 from app.core.config import settings
 
 import openai
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores import Chroma
-from langchain.llms import OpenAI
-from langchain.chains import RetrievalQA
+from langchain_openai import OpenAIEmbeddings
+from langchain_community.vectorstores import Chroma
 from langchain.prompts import PromptTemplate
 
 
@@ -377,7 +375,10 @@ class EnterpriseAnalysisService:
         
         # Call OpenAI with enterprise-optimized parameters
         try:
-            response = await openai.ChatCompletion.acreate(
+            from openai import OpenAI
+            client = OpenAI(api_key=settings.OPENAI_API_KEY)
+            
+            response = client.chat.completions.create(
                 model="gpt-4",  # Better model for complex queries
                 messages=[
                     {"role": "system", "content": "You are a senior business intelligence analyst."},
