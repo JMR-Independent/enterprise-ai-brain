@@ -33,7 +33,7 @@ class Settings(BaseSettings):
     LANGCHAIN_PROJECT: str = "enterprise-ai-brain"
     
     # Vector Store
-    VECTOR_STORE_PATH: str = "./enterprise_chroma_db"
+    VECTOR_STORE_PATH: str = "../enterprise_chroma_db"
     EMBEDDING_MODEL: str = "text-embedding-ada-002"
     
     # Enterprise RAG Configuration
@@ -47,7 +47,7 @@ class Settings(BaseSettings):
     LLM_TEMPERATURE: float = 0.1
     
     # File Processing
-    UPLOAD_DIR: str = "./enterprise_uploads"
+    UPLOAD_DIR: str = "../enterprise_uploads"
     MAX_FILE_SIZE: int = 104857600  # 100MB
     SUPPORTED_FORMATS: str = "pdf,docx,xlsx,csv,txt,json,pptx"
     ENABLE_OCR: bool = True
@@ -63,7 +63,7 @@ class Settings(BaseSettings):
     # Analytics & Reporting
     ENABLE_ADVANCED_ANALYTICS: bool = True
     ENABLE_AUTO_REPORTS: bool = True
-    REPORTS_OUTPUT_DIR: str = "./reports"
+    REPORTS_OUTPUT_DIR: str = "../reports"
     ENABLE_CHARTS: bool = True
     CHART_THEME: str = "plotly_white"
     
