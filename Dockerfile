@@ -13,4 +13,4 @@ RUN mkdir -p ../enterprise_uploads ../enterprise_chroma_db ../reports
 
 EXPOSE 8000
 
-CMD ["python", "start_enterprise.py"]
+CMD ["python", "run.py"]
