@@ -1,0 +1,58 @@
+# Base from ai-chatbot (proven stack)
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+sqlalchemy==2.0.23
+alembic==1.12.1
+asyncpg==0.29.0
+redis==5.0.1
+
+# Authentication & Security (same as ai-chatbot)
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+bcrypt==4.0.1
+
+# LangChain & AI (same versions for compatibility)
+langchain==0.1.0
+langchain-community==0.0.10
+langchain-openai==0.0.2
+openai==1.6.1
+chromadb==0.4.18
+
+# Document Processing (ENHANCED for enterprise)
+PyPDF2==3.0.1
+python-docx==1.1.0
+openpyxl==3.1.2              # NEW: Excel processing
+pandas==2.1.4                # NEW: Data analysis
+numpy==1.24.3                # NEW: Numerical operations
+tabula-py==2.8.2             # NEW: PDF table extraction
+pdfplumber==0.10.0           # NEW: Advanced PDF parsing
+
+# Data Connectors (NEW)
+google-api-python-client==2.108.0
+google-auth-httplib2==0.1.1
+google-auth-oauthlib==1.1.0
+dropbox==11.36.2
+requests==2.31.0
+
+# Analytics & Reporting (NEW)  
+matplotlib==3.8.2
+seaborn==0.13.0
+plotly==5.17.0
+jinja2==3.1.2
+
+# Utilities (enhanced)
+python-dotenv==1.0.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
+aiofiles==23.2.1
+python-magic==0.4.27       # NEW: File type detection
+dateparser==1.2.0          # NEW: Smart date parsing
+fuzzywuzzy==0.18.0         # NEW: Fuzzy string matching
+python-Levenshtein==0.23.0 # NEW: String similarity
+
+# Development
+pytest==7.4.3
+pytest-asyncio==0.21.1
+black==23.11.0
+flake8==6.1.0

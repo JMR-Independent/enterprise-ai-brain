@@ -1,0 +1,91 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# FastAPI / uvicorn
+.env.local
+.env.production
+
+# Database
+*.sqlite3
+*.db
+
+# ChromaDB
+enterprise_chroma_db/
+chroma_db/
+
+# Uploads
+enterprise_uploads/
+uploads/
+temp/
+
+# Reports
+reports/
+*.pdf
+*.xlsx
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Railway
+.railway/
+
+# Secrets (important!)
+.env
+.env.local
+.env.production
+*.pem
+*.key
+*_secret*
+credentials.json
