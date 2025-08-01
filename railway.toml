@@ -2,6 +2,7 @@
 builder = "DOCKERFILE"
 
 [deploy]
+startCommand = "python start_enterprise.py"
 healthcheckPath = "/health"
 healthcheckTimeout = 100
 restartPolicyType = "ON_FAILURE"
