@@ -23,8 +23,11 @@ COPY . .
 # Create necessary directories
 RUN mkdir -p enterprise_uploads enterprise_chroma_db reports
 
+# Change to backend directory
+WORKDIR /app/backend
+
 # Expose port
 EXPOSE $PORT
 
-# Start command
-CMD cd backend && python -m uvicorn app.main:app --host 0.0.0.0 --port $PORT
+# Start command (now we're already in backend directory)
+CMD ["sh", "-c", "python -m uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
