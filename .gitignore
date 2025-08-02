@@ -88,4 +88,4 @@ htmlcov/
 *.pem
 *.key
 *_secret*
-credentials.json
+credentials.jsonnode_modules/
