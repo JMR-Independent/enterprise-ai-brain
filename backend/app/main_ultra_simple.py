@@ -14,20 +14,30 @@ from sqlalchemy.ext.asyncio import AsyncSession
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-        
-        # Fix missing columns
-        print("Attempting database schema update...")
-        try:
-            await conn.execute(text("ALTER TABLE enterprises ADD COLUMN IF NOT EXISTS industry VARCHAR(255)"))
-            print("Database schema updated successfully")
-        except Exception as e:
-            print(f"Schema update failed: {e}")
+    print("🚀 Starting Enterprise AI Brain...")
+    try:
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
+            
+            # Fix missing columns
+            print("Attempting database schema update...")
+            try:
+                await conn.execute(text("ALTER TABLE enterprises ADD COLUMN IF NOT EXISTS industry VARCHAR(255)"))
+                print("✅ Database schema updated successfully")
+            except Exception as e:
+                print(f"⚠️ Schema update failed: {e}")
+        print("✅ Database connected successfully")
+    except Exception as e:
+        print(f"❌ Database connection failed: {e}")
+        print("⚠️ Server will start without database (some features disabled)")
             
     yield
     # Shutdown
-    await engine.dispose()
+    try:
+        await engine.dispose()
+        print("✅ Database connection closed")
+    except Exception as e:
+        print(f"⚠️ Error closing database: {e}")
 
 
 print("ENTERPRISE AI ULTRA SIMPLE 2025-08-02 - RAILWAY MUST USE THIS CODE NOW!")
@@ -111,21 +121,25 @@ async def simple_enterprise_query(request: Request):
         }
 
 @app.get("/test-database")
-async def test_database(db: AsyncSession = Depends(get_db)):
+async def test_database():
     """Test database connection"""
     try:
-        result = await db.execute(text("SELECT 1 as test"))
-        test_value = result.scalar()
-        return {
-            "status": "success",
-            "database": "connected",
-            "test_result": test_value
-        }
+        # Test connection without dependency injection to avoid startup errors
+        from app.core.database_simple import engine
+        async with engine.begin() as conn:
+            result = await conn.execute(text("SELECT 1 as test"))
+            test_value = result.scalar()
+            return {
+                "status": "success",
+                "database": "connected",
+                "test_result": test_value
+            }
     except Exception as e:
         return {
             "status": "error",
             "database": "failed",
-            "error": str(e)
+            "error": str(e),
+            "message": "Database not available - check DATABASE_URL environment variable"
         }
 
 if __name__ == "__main__":
