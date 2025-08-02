@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rize Professional Cleaning - Chatbot Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #8B4513;
+            text-align: center;
+        }
+        .instructions {
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rize Professional Cleaning</h1>
+        <div class="instructions">
+            <p><strong>¡Hola!</strong> Este es el sitio de prueba para nuestro chatbot.</p>
+            <p>El chatbot debería aparecer en la esquina inferior derecha de la página.</p>
+            <p>Pregunta sobre nuestros servicios, como por ejemplo: "¿Ofrecen servicios de limpieza de vidrios?"</p>
+        </div>
+        
+        <h2>Sobre Rize Professional Cleaning</h2>
+        <p>Somos una empresa especializada en servicios de limpieza profesional...</p>
+        
+        <h3>Nuestros Servicios</h3>
+        <ul>
+            <li>Limpieza residencial</li>
+            <li>Limpieza comercial</li>
+            <li>Limpieza de vidrios</li>
+            <li>Servicios especializados</li>
+        </ul>
+        
+        <h3>Contacto</h3>
+        <p><strong>Teléfono:</strong> (801) 739-0700</p>
+        <p><strong>Horarios:</strong> Lunes a Sábado, 8AM - 6PM</p>
+    </div>
+
+    <!-- Chatbot Widget Inline -->
+    <script>
+(function() {
+  window.AIChatbot = {
+    init: function(config) {
+      console.log('🚀 Initializing chatbot with config:', config);
+      
+      // Función mejorada para esperar DOM
+      function waitForDOM(callback) {
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', callback);
+        } else {
+          setTimeout(callback, 1000);
+        }
+      }
+
+      // Función para crear el chatbot de forma segura
+      function createChatbot() {
+        try {
+          console.log('Creating chatbot elements...');
+          
+          // Eliminar chatbots existentes
+          const existing = document.querySelectorAll('#ai-chatbot-button, #ai-chatbot-window');
+          existing.forEach(el => {
+            try {
+              el.remove();
+            } catch (e) {
+              console.log('Element already removed');
+            }
+          });
+
+          let conversationId = 'web-chat-' + Date.now();
+
+          // Crear contenedor principal
+          const chatContainer = document.createElement('div');
+          chatContainer.innerHTML = `
+            <!-- Botón del chatbot -->
+            <div id="ai-chatbot-button" style="
+              position: fixed !important;
+              bottom: 25px !important;
+              right: 25px !important;
+              width: 70px !important;
+              height: 70px !important;
+              background: linear-gradient(135deg, ${config.primaryColor || '#8B4513'}, #A0522D, #CD853F) !important;
+              border-radius: 50% !important;
+              display: flex !important;
+              align-items: center !important;
+              justify-content: center !important;
+              color: white !important;
+              font-size: 28px !important;
+              cursor: pointer !important;
+              box-shadow: 0 8px 25px rgba(139, 69, 19, 0.4) !important;
+              z-index: 999999 !important;
+              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+              transition: all 0.3s ease !important;
+            ">
+              🎨
+            </div>
+            
+            <!-- Ventana del chat -->
+            <div id="ai-chatbot-window" style="
+              position: fixed !important;
+              bottom: 110px !important;
+              right: 25px !important;
+              width: 380px !important;
+              height: 500px !important;
+              background: white !important;
+              border-radius: 20px !important;
+              box-shadow: 0 20px 60px rgba(0,0,0,0.2) !important;
+              display: none !important;
+              z-index: 999998 !important;
+              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+              overflow: hidden !important;
+            ">
+              <!-- Header -->
+              <div style="
+                padding: 20px !important;
+                background: linear-gradient(135deg, ${config.primaryColor || '#8B4513'}, #A0522D) !important;
+                color: white !important;
+                border-radius: 20px 20px 0 0 !important;
+                display: flex !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+              ">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <div style="
+                    width: 40px; 
+                    height: 40px; 
+                    background: rgba(255,255,255,0.2); 
+                    border-radius: 50%; 
+                    display: flex; 
+                    align-items: center; 
+                    justify-content: center; 
+                    font-size: 18px;
+                  ">🎨</div>
+                  <div>
+                    <div style="font-size: 16px; font-weight: 600;">${config.companyName || 'Rize Professional Cleaning'}</div>
+                    <div style="font-size: 11px; opacity: 0.9;">Asistente Virtual</div>
+                  </div>
+                </div>
+                <div id="chat-close" style="
+                  cursor: pointer !important;
+                  font-size: 18px !important;
+                  width: 30px !important;
+                  height: 30px !important;
+                  border-radius: 50% !important;
+                  display: flex !important;
+                  align-items: center !important;
+                  justify-content: center !important;
+                  background: rgba(255,255,255,0.1) !important;
+                ">✕</div>
+              </div>
+              
+              <!-- Área de mensajes -->
+              <div id="chat-messages" style="
+                height: 340px !important;
+                overflow-y: auto !important;
+                padding: 20px !important;
+                background: #f8f9fa !important;
+              ">
+                <!-- Mensaje de bienvenida -->
+                <div style="
+                  background: #e9ecef !important;
+                  padding: 15px !important;
+                  border-radius: 10px !important;
+                  margin-bottom: 15px !important;
+                  font-size: 14px !important;
+                  line-height: 1.5 !important;
+                ">
+                  ${config.welcomeMessage || '¡Hola! Soy el asistente de Rize Professional Cleaning. ¿En qué puedo ayudarte?'}
+                </div>
+              </div>
+              
+              <!-- Área de input -->
+              <div style="
+                padding: 20px !important;
+                background: white !important;
+                border-top: 1px solid #dee2e6 !important;
+                display: flex !important;
+                gap: 10px !important;
+                align-items: center !important;
+              ">
+                <input type="text" id="chat-input" placeholder="Escribe tu consulta..." style="
+                  flex: 1 !important;
+                  padding: 12px !important;
+                  border: 2px solid #dee2e6 !important;
+                  border-radius: 20px !important;
+                  outline: none !important;
+                  font-size: 14px !important;
+                  font-family: inherit !important;
+                ">
+                <button id="chat-send" style="
+                  width: 45px !important;
+                  height: 45px !important;
+                  background: ${config.primaryColor || '#8B4513'} !important;
+                  color: white !important;
+                  border: none !important;
+                  border-radius: 50% !important;
+                  cursor: pointer !important;
+                  font-size: 18px !important;
+                  display: flex !important;
+                  align-items: center !important;
+                  justify-content: center !important;
+                ">➤</button>
+              </div>
+            </div>
+          `;
+          
+          // Agregar al body
+          document.body.appendChild(chatContainer);
+          console.log('✅ Chatbot elements added to DOM');
+
+          // Esperar un poco para que se rendericen
+          setTimeout(function() {
+            const button = document.getElementById('ai-chatbot-button');
+            const window = document.getElementById('ai-chatbot-window');
+            const closeBtn = document.getElementById('chat-close');
+            const sendBtn = document.getElementById('chat-send');
+            const input = document.getElementById('chat-input');
+            const messages = document.getElementById('chat-messages');
+            
+            if (!button || !window || !closeBtn || !sendBtn || !input || !messages) {
+              console.error('❌ Chatbot elements not found');
+              return;
+            }
+
+            console.log('✅ All chatbot elements found, setting up events');
+
+            // Abrir/cerrar chat
+            button.onclick = function() {
+              const isHidden = window.style.display === 'none' || window.style.display === '';
+              window.style.display = isHidden ? 'block' : 'none';
+              console.log('Chat window toggled:', isHidden ? 'opened' : 'closed');
+            };
+            
+            closeBtn.onclick = function() {
+              window.style.display = 'none';
+              console.log('Chat window closed');
+            };
+            
+            // Función para enviar mensaje
+            async function sendMessage() {
+              const message = input.value.trim();
+              if (!message) return;
+
+              console.log('Sending message:', message);
+              
+              // Mostrar mensaje del usuario
+              messages.innerHTML += `
+                <div style="text-align: right; margin-bottom: 10px;">
+                  <div style="
+                    background: ${config.primaryColor || '#8B4513'}; 
+                    color: white; 
+                    padding: 10px 15px; 
+                    border-radius: 15px; 
+                    display: inline-block; 
+                    max-width: 70%; 
+                    font-size: 14px;
+                  ">${message}</div>
+                </div>
+              `;
+              
+              input.value = '';
+              messages.scrollTop = messages.scrollHeight;
+              
+              // Mostrar "escribiendo..."
+              const typingId = 'typing-' + Date.now();
+              messages.innerHTML += `
+                <div id="${typingId}" style="margin-bottom: 10px;">
+                  <div style="
+                    background: #e9ecef; 
+                    padding: 10px 15px; 
+                    border-radius: 15px; 
+                    display: inline-block; 
+                    font-size: 14px; 
+                    color: #6c757d;
+                  ">Escribiendo...</div>
+                </div>
+              `;
+              messages.scrollTop = messages.scrollHeight;
+              
+              try {
+                console.log('Making API request to:', config.apiUrl + '/api/chat/public');
+                const response = await fetch(`${config.apiUrl}/api/chat/public`, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    message: message,
+                    conversation_id: conversationId,
+                    use_rag: true,
+                    max_documents: 5
+                  })
+                });
+                
+                // Remover "escribiendo..."
+                const typingElement = document.getElementById(typingId);
+                if (typingElement) {
+                  typingElement.remove();
+                }
+                
+                if (response.ok) {
+                  const data = await response.json();
+                  console.log('API response received:', data);
+                  
+                  // Mostrar respuesta del AI
+                  const formattedResponse = data.response
+                    .replace(/\\n/g, '<br>')
+                    .replace(/\\*\\*(.*?)\\*\\*/g, '<strong>$1</strong>');
+                  
+                  messages.innerHTML += `
+                    <div style="margin-bottom: 10px;">
+                      <div style="
+                        background: #e9ecef; 
+                        padding: 12px 15px; 
+                        border-radius: 15px; 
+                        display: inline-block; 
+                        max-width: 80%; 
+                        font-size: 14px; 
+                        color: #2c3e50; 
+                        line-height: 1.4;
+                      ">${formattedResponse}</div>
+                    </div>
+                  `;
+                  
+                  if (data.rag_used) {
+                    console.log('✅ RAG was used for this response');
+                  }
+                  
+                } else {
+                  console.error('API error:', response.status);
+                  const errorData = await response.json().catch(() => ({}));
+                  messages.innerHTML += `
+                    <div style="margin-bottom: 10px;">
+                      <div style="
+                        background: #ffe6e6; 
+                        padding: 10px 15px; 
+                        border-radius: 15px; 
+                        display: inline-block; 
+                        font-size: 13px; 
+                        color: #cc0000;
+                      ">❌ Error: ${errorData.detail || 'No se pudo procesar tu mensaje'}</div>
+                    </div>
+                  `;
+                }
+                
+              } catch (error) {
+                console.error('Connection error:', error);
+                
+                const typingElement = document.getElementById(typingId);
+                if (typingElement) {
+                  typingElement.remove();
+                }
+                
+                messages.innerHTML += `
+                  <div style="margin-bottom: 10px;">
+                    <div style="
+                      background: #ffe6e6; 
+                      padding: 10px 15px; 
+                      border-radius: 15px; 
+                      display: inline-block; 
+                      font-size: 13px; 
+                      color: #cc0000;
+                    ">❌ Error de conexión. Verifica que el backend esté ejecutándose.</div>
+                  </div>
+                `;
+              }
+              
+              messages.scrollTop = messages.scrollHeight;
+            }
+            
+            // Eventos
+            sendBtn.onclick = sendMessage;
+            input.onkeypress = function(e) {
+              if (e.key === 'Enter') {
+                sendMessage();
+              }
+            };
+
+            console.log('🎉 Chatbot initialized successfully!');
+
+          }, 500);
+
+        } catch (error) {
+          console.error('❌ Error creating chatbot:', error);
+        }
+      }
+
+      // Inicializar
+      waitForDOM(function() {
+        setTimeout(createChatbot, 1000);
+      });
+
+      // Backup
+      setTimeout(function() {
+        if (!document.getElementById('ai-chatbot-button')) {
+          console.log('Retrying chatbot creation...');
+          createChatbot();
+        }
+      }, 5000);
+    }
+  };
+})();
+    </script>
+
+    <script>
+        // Initialize the chatbot
+        console.log('🚀 Starting chatbot initialization...');
+        window.AIChatbot.init({
+            apiUrl: 'https://ai-chatbot-rize-corsorigins-7c54.up.railway.app',
+            companyName: 'Rize Professional Cleaning',
+            primaryColor: '#8B4513',
+            welcomeMessage: '¡Hola! Soy el asistente de Rize Professional Cleaning 🎨<br><br>Puedo ayudarte con información sobre:<br>• Nuestros servicios de limpieza<br>• Presupuestos y cotizaciones<br>• Tiempos de entrega<br>• Proyectos personalizados<br><br>¿En qué puedo ayudarte hoy?'
+        });
+    </script>
+</body>
+</html>

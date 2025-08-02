@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rize Professional Cleaning - Chatbot Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #8B4513;
+            text-align: center;
+        }
+        .instructions {
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rize Professional Cleaning</h1>
+        <div class="instructions">
+            <p><strong>¡Hola!</strong> Este es el sitio de prueba para nuestro chatbot.</p>
+            <p>El chatbot debería aparecer en la esquina inferior derecha de la página.</p>
+            <p>Pregunta sobre nuestros servicios, como por ejemplo: "¿Ofrecen servicios de limpieza de vidrios?"</p>
+        </div>
+        
+        <h2>Sobre Rize Professional Cleaning</h2>
+        <p>Somos una empresa especializada en servicios de limpieza profesional...</p>
+        
+        <h3>Nuestros Servicios</h3>
+        <ul>
+            <li>Limpieza residencial</li>
+            <li>Limpieza comercial</li>
+            <li>Limpieza de vidrios</li>
+            <li>Servicios especializados</li>
+        </ul>
+        
+        <h3>Contacto</h3>
+        <p><strong>Teléfono:</strong> (801) 739-0700</p>
+        <p><strong>Horarios:</strong> Lunes a Sábado, 8AM - 6PM</p>
+    </div>
+
+    <!-- Load the chatbot widget -->
+    <script src="./widget.js"></script>
+    <script>
+        // Initialize the chatbot
+        window.AIChatbot.init({
+            apiUrl: 'https://ai-chatbot-rize-corsorigins-7c54.up.railway.app',
+            companyName: 'Rize Professional Cleaning',
+            primaryColor: '#8B4513',
+            welcomeMessage: '¡Hola! Soy el asistente de Rize Professional Cleaning 🎨<br><br>Puedo ayudarte con información sobre:<br>• Nuestros servicios de limpieza<br>• Presupuestos y cotizaciones<br>• Tiempos de entrega<br>• Proyectos personalizados<br><br>¿En qué puedo ayudarte hoy?'
+        });
+    </script>
+</body>
+</html>
